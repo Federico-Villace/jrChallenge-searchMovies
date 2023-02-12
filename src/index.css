@@ -16,6 +16,12 @@ main {
  * if a system-wide theme preference is set on the user's device.
  */
 
+.responsive-grid {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  padding: 10px;
+}
+
 :root {
   --highlight-border-radius: 7px;
   --border-radius: 11px;
