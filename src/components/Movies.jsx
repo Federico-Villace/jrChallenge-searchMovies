@@ -1,7 +1,6 @@
 export const Movies = ({ movies }) => {
   const hasMovies = movies?.length > 0;
-  console.log(hasMovies);
-
+  console.log(movies);
   return (
     <ul className="responsive-grid">
       {hasMovies ? (
@@ -10,7 +9,7 @@ export const Movies = ({ movies }) => {
             <li key={item.id}>
               <p>title: {item.title}</p>
               <p>year: {item.year}</p>
-              <img src={item.poster} alt={item.title} />
+              <img src={item.image} alt={item.title} />
             </li>
           );
         })

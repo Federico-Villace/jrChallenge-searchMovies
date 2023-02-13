@@ -1,12 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import { Movies } from "./components/Movies";
 import { useMovies } from "./hooks/useMovies";
 
 export function useSearch() {
   const [search, setSearch] = useState("");
+  const [error, setError] = useState(null);
 
-  return { search, setSearch };
+  useEffect(() => {
+    setError(null);
+  }, [search]);
+  return { search, setSearch, error };
 }
 
 function App() {
@@ -17,14 +21,12 @@ function App() {
   const handleChange = (e) => {
     const search = e.target.value;
     setSearch(search);
-    console.log({ search });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     getMovies({ search });
   };
-  console.log(movies);
 
   return (
     <div className="App">
