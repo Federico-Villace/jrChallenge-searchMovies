@@ -1,4 +1,4 @@
-import { API_KEY } from "../utiils/keys";
+import { API_KEY } from "../utils/keys";
 
 export async function setSearch({ search }) {
   if (search === "") return null;
