@@ -1,16 +1,17 @@
 export const Movies = ({ movies }) => {
   const hasMovies = movies?.length > 0;
-  console.log(movies);
   return (
     <ul className="responsive-grid">
       {hasMovies ? (
         movies.map((item) => {
           return (
-            <li key={item.id}>
-              <p>title: {item.title}</p>
-              <p>year: {item.year}</p>
-              <img src={item.image} alt={item.title} />
-            </li>
+            <div className="card">
+              <h5 className="title">{item.title}</h5>
+              <li className="card-info" key={item.id}>
+                <img className="img" src={item.image} alt={item.title} />
+                <p>Year of Release: {item.year}</p>
+              </li>
+            </div>
           );
         })
       ) : (

@@ -10,7 +10,6 @@ export function useMovies({ search }) {
     try {
       const newMovies = await setSearch({ search });
       setMovies(newMovies);
-      console.log("movies", movies);
     } catch (e) {
       throw new Error(e);
     }

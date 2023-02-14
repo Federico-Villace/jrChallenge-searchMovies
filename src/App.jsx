@@ -1,16 +1,11 @@
-import { useEffect, useState } from "react";
-import "./App.css";
+import { useState } from "react";
 import { Movies } from "./components/Movies";
 import { useMovies } from "./hooks/useMovies";
 
 export function useSearch() {
   const [search, setSearch] = useState("");
-  const [error, setError] = useState(null);
 
-  useEffect(() => {
-    setError(null);
-  }, [search]);
-  return { search, setSearch, error };
+  return { search, setSearch };
 }
 
 function App() {
@@ -32,12 +27,13 @@ function App() {
     <div className="App">
       <main>
         <header>
+          <h1 className="title"> Movies Finder </h1>
           <form className="form" onSubmit={handleSubmit}>
             <input
               type={"text"}
               onChange={handleChange}
               value={search}
-              placeholder="Avengers, The Simpsons, etc..."
+              placeholder="Avengers, Harry Potter, etc..."
             />
             <button type="submit">Search</button>
           </form>
