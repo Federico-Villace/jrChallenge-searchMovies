@@ -34,8 +34,11 @@ main {
 }
 
 .card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   --background: linear-gradient(to top, #a396f4 0%, #3a27b5 100%);
-  width: fit-content;
+  max-width: fit-content;
   height: fit-content;
   padding: 5px;
   border-radius: 1rem;
@@ -44,6 +47,7 @@ main {
   position: relative;
   z-index: 1;
   margin: 20px;
+  justify-content: center;
 }
 
 .card-info {
@@ -54,21 +58,22 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 100%;
+  width: fit-content;
+  height: fit-content;
   overflow: visible;
   border-radius: 0.7rem;
   padding: 10px;
 }
 
 .card .img {
-  max-width: 200px;
-  max-height: 300px;
+  max-width: fit-content;
+  max-height: fit-content;
 }
 
 .card .title {
   font-weight: normal;
   letter-spacing: 0.1em;
+  max-width: 250px;
 }
 
 /*Hover*/
@@ -93,7 +98,7 @@ main {
   padding: 0;
 
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 
   width: 100%;
   gap: 32px;
