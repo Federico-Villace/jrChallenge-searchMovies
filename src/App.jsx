@@ -1,15 +1,33 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Movies } from "./components/Movies";
 import { useMovies } from "./hooks/useMovies";
 
 export function useSearch() {
   const [search, setSearch] = useState("");
+  const [error, setError] = useState(null);
+  const isFirstInput = useRef(true);
 
-  return { search, setSearch };
+  useEffect(() => {
+    if (isFirstInput.current) {
+      isFirstInput.current = search === "";
+      return;
+    }
+    if (search === "") {
+      setError("Empty search not allowed!");
+      return;
+    }
+    if (search.length < 3) {
+      setError("searches with less than 3 characters are not allowed.");
+      return;
+    }
+    setError(null);
+  }, [search]);
+
+  return { search, setSearch, error };
 }
 
 function App() {
-  const { search, setSearch } = useSearch();
+  const { search, setSearch, error } = useSearch();
 
   const { movies, getMovies } = useMovies({ search });
 
@@ -38,6 +56,7 @@ function App() {
             <button type="submit">Search</button>
           </form>
         </header>
+        {error && <p style={{ color: "red" }}>{error}</p>}
         <div>
           <Movies movies={movies} />
         </div>

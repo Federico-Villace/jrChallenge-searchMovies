@@ -5,9 +5,9 @@ export const Movies = ({ movies }) => {
       {hasMovies ? (
         movies.map((item) => {
           return (
-            <div className="card">
+            <div className="card" key={item.id}>
               <h5 className="title">{item.title}</h5>
-              <li className="card-info" key={item.id}>
+              <li className="card-info">
                 <img className="img" src={item.image} alt={item.title} />
                 <p>Year of Release: {item.year}</p>
               </li>
