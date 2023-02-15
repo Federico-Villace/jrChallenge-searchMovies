@@ -50,14 +50,17 @@ function App() {
     <div className="App">
       <main>
         <header>
-          <h1 className="title"> Movies Finder </h1>
+          <h1 className="mainTitle">
+            {" "}
+            Find the movie or serie you're looking for!{" "}
+          </h1>
           <form className="form" onSubmit={handleSubmit}>
             <div className="searchMovies">
               <input
                 type={"text"}
                 onChange={handleChange}
                 value={search}
-                placeholder="Avengers, Harry Potter, etc..."
+                placeholder="Avengers, Harry Potter, Etc..."
               />
               <button type="submit">Search</button>
             </div>
@@ -69,7 +72,7 @@ function App() {
         </header>
         {error && <p style={{ color: "red" }}>{error}</p>}
         <div style={{ width: "100%" }}>
-          {loading ? <p>Cargando...</p> : <Movies movies={movies} />}
+          {loading ? <p>Loading... ...</p> : <Movies movies={movies} />}
         </div>
       </main>
     </div>
