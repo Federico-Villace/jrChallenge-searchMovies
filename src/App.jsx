@@ -57,7 +57,7 @@ function App() {
           </form>
         </header>
         {error && <p style={{ color: "red" }}>{error}</p>}
-        <div>
+        <div style={{ width: "100%" }}>
           <Movies movies={movies} />
         </div>
       </main>
