@@ -1,9 +1,9 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useMemo } from "react";
 
 const URL = "https://www.omdbapi.com/";
 import { setSearch } from "../services/movies";
 
-export function useMovies({ search }) {
+export function useMovies({ search, sort }) {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
   const previousSearch = useRef(search);
@@ -22,5 +22,12 @@ export function useMovies({ search }) {
     }
   };
 
-  return { movies, getMovies, loading };
+  const sortedMovies = useMemo(() => {
+    console.log("memo Sorted movies ");
+    return sort
+      ? [...movies].sort((a, b) => a.title.localeCompare(b.title))
+      : movies;
+  }, [movies, sort]);
+
+  return { movies: sortedMovies, getMovies, loading };
 }

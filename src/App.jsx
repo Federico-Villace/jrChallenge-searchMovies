@@ -27,9 +27,10 @@ export function useSearch() {
 }
 
 function App() {
+  const [sort, setSort] = useState(false);
   const { search, setSearch, error } = useSearch();
 
-  const { movies, getMovies, loading } = useMovies({ search });
+  const { movies, getMovies, loading } = useMovies({ search, sort });
 
   const handleChange = (e) => {
     const search = e.target.value;
@@ -41,19 +42,29 @@ function App() {
     getMovies({ search });
   };
 
+  const handleSort = () => {
+    setSort(!sort);
+  };
+
   return (
     <div className="App">
       <main>
         <header>
           <h1 className="title"> Movies Finder </h1>
           <form className="form" onSubmit={handleSubmit}>
-            <input
-              type={"text"}
-              onChange={handleChange}
-              value={search}
-              placeholder="Avengers, Harry Potter, etc..."
-            />
-            <button type="submit">Search</button>
+            <div className="searchMovies">
+              <input
+                type={"text"}
+                onChange={handleChange}
+                value={search}
+                placeholder="Avengers, Harry Potter, etc..."
+              />
+              <button type="submit">Search</button>
+            </div>
+            <div className="sortedMovies">
+              <p>Sort by alphabetical order</p>
+              <input type="checkbox" onChange={handleSort} checked={sort} />
+            </div>
           </form>
         </header>
         {error && <p style={{ color: "red" }}>{error}</p>}
