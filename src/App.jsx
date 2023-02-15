@@ -29,7 +29,7 @@ export function useSearch() {
 function App() {
   const { search, setSearch, error } = useSearch();
 
-  const { movies, getMovies } = useMovies({ search });
+  const { movies, getMovies, loading } = useMovies({ search });
 
   const handleChange = (e) => {
     const search = e.target.value;
@@ -58,7 +58,7 @@ function App() {
         </header>
         {error && <p style={{ color: "red" }}>{error}</p>}
         <div style={{ width: "100%" }}>
-          <Movies movies={movies} />
+          {loading ? <p>Cargando...</p> : <Movies movies={movies} />}
         </div>
       </main>
     </div>
