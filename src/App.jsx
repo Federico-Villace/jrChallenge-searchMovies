@@ -1,6 +1,8 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useId } from "react";
 import { Movies } from "./components/Movies";
 import { useMovies } from "./hooks/useMovies";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export function useSearch() {
   const [search, setSearch] = useState("");
@@ -16,10 +18,6 @@ export function useSearch() {
       setError("Empty search not allowed!");
       return;
     }
-    if (search.length < 3) {
-      setError("searches with less than 3 characters are not allowed.");
-      return;
-    }
     setError(null);
   }, [search]);
 
@@ -29,6 +27,7 @@ export function useSearch() {
 function App() {
   const [sort, setSort] = useState(false);
   const { search, setSearch, error } = useSearch();
+  const toastId = useId();
 
   const { movies, getMovies, loading } = useMovies({ search, sort });
 
@@ -45,6 +44,18 @@ function App() {
   const handleSort = () => {
     setSort(!sort);
   };
+
+  const toastError = () =>
+    toast.error(error, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      theme: "dark",
+      toastId: toastId,
+    });
 
   return (
     <div className="App">
@@ -64,13 +75,19 @@ function App() {
               />
               <button type="submit">Search</button>
             </div>
+            {error ? (
+              <>
+                <ToastContainer>{toastError(error)}</ToastContainer>
+              </>
+            ) : (
+              ""
+            )}
             <div className="sortedMovies">
               <p>Sort by alphabetical order</p>
               <input type="checkbox" onChange={handleSort} checked={sort} />
             </div>
           </form>
         </header>
-        {error && <p style={{ color: "red" }}>{error}</p>}
         <div style={{ width: "100%" }}>
           {loading ? <p>Loading... ...</p> : <Movies movies={movies} />}
         </div>
