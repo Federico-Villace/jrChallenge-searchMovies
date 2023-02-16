@@ -1,28 +1,9 @@
-import { useState, useRef, useEffect, useId } from "react";
+import { useState, useId } from "react";
 import { Movies } from "./components/Movies";
 import { useMovies } from "./hooks/useMovies";
+import { useSearch } from "./hooks/useSearch";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-export function useSearch() {
-  const [search, setSearch] = useState("");
-  const [error, setError] = useState(null);
-  const isFirstInput = useRef(true);
-
-  useEffect(() => {
-    if (isFirstInput.current) {
-      isFirstInput.current = search === "";
-      return;
-    }
-    if (search === "") {
-      setError("Empty search not allowed!");
-      return;
-    }
-    setError(null);
-  }, [search]);
-
-  return { search, setSearch, error };
-}
 
 function App() {
   const [sort, setSort] = useState(false);
