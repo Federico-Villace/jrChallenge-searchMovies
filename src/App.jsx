@@ -1,7 +1,8 @@
-import { useState, useId } from "react";
+import { useState, useId, useCallback } from "react";
 import { Movies } from "./components/Movies";
 import { useMovies } from "./hooks/useMovies";
 import { useSearch } from "./hooks/useSearch";
+import debounce from "just-debounce-it";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -12,9 +13,17 @@ function App() {
 
   const { movies, getMovies, loading } = useMovies({ search, sort });
 
+  const debounceSearch = useCallback(
+    debounce((search) => {
+      getMovies({ search });
+    }, 300),
+    [getMovies]
+  );
+
   const handleChange = (e) => {
-    const search = e.target.value;
-    setSearch(search);
+    const newSearch = e.target.value;
+    setSearch(newSearch);
+    debounceSearch(newSearch);
   };
 
   const handleSubmit = (e) => {
